@@ -20,6 +20,6 @@ app.listen(PORT, async () => {
   //catch promise
   const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
   //retrun the first element: data, and the second element: metadata
-//   console.log(connect);
+  //   console.log(connect);
   if (data) console.log("Successful connection to the MySQL database!");
 });
