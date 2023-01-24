@@ -6,6 +6,8 @@ const methodOverride = require("method-override");
 //mysqlを読み込ませる
 const dbConnection = require("./util/mysql");
 
+const blogsRouter = require("./routers/blogs.router");
+
 const app = express();
 
 //.useはmiddleware(req, resの仲介)の設定
@@ -19,16 +21,20 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.set("views", "src/views");
 
-// Route handler that sends a message at /
+// Route handler that sends a message at
+//app.get means “Run this on a GET request, for the given URL”
+//( It is only for handling GET HTTP requests.)
 app.get("/", (req, res) => {
-  res.send("Hello Express!");
+  res.render("index", { title: "login" });
 });
 
-app.get("/blogs", () => {
-  //routerにつなげて、処理の内容たいはmodelに書いていく
-
-  res.json();
-});
+//🌟app.use means “Run this on ALL requests”
+//( It is generally used for introducing middlewares in your application and can handle all type of HTTP requests.)
+app.use(
+  "/blogs",
+  blogsRouter
+  //routerにつなげて、処理の内容はmodelに書いていく
+);
 
 const PORT = process.env.PORT || 8000;
 

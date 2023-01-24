@@ -1,11 +1,13 @@
-//DB関連の処理を担当 (CRUDの操作)
+//DB関連の処理を担当 (CRUDの操作, communication with the data)
 
 //データベースに接続された状況をimport, ここで読み込んでいく操作をする
 
-//query: 実行したいSQL文をセット、SQLに必要ならパラメーターをセット、SQLを実行
-//excute: 変動値があればqueryの代わりにexcuteを使う
+//MySQLは下の2つのメソッド(SQlightはrunメソッド)
+//query: 実行したいSQL文をセット、SQLに必要ならパラメーターをセット、SQLを実行(引数はいらない)
+//excute: 変動値があればqueryの代わりにexcuteを使う(引数がある)
 const db = require("../util/mysql");
 
+//クラス関数作って、ここで処理を書いていく(インスタン化した方が処理しやすいから)
 module.exports = class Blog {
   constructor(BlogID, Title, Article) {
     this.BlogID = BlogID;
@@ -13,33 +15,20 @@ module.exports = class Blog {
     this.Article = Article;
   }
 
-//   save() {
-//     const sql = "INSERT INTO Books (Title, Author, Comments) VALUES (?, ?, ?)";
-//     const params = [this.Title, this.Author, this.Comments];
+  //data saving(コンストラクターの引数取ってくる)
+  //   save() {
+  //     const sql = "INSERT INTO Books (Title, Author, Comments) VALUES (?, ?, ?)";
+  //     const params = [this.Title, this.Author, this.Comments];
 
-//     return db.execute(sql, params);
-//   }
+  //     return db.execute(sql, params);
+  //   }
 
+  //static methods
+  //(call method directly without having to instantiate the recipe object, インスタンスに属するものは一切参照しない)
   static find() {
+    //IDの順番に並べる
     const sql = "SELECT * FROM Books ORDER BY Book_ID DESC";
     return db.query(sql);
   }
-
-//   static findById(id) {
-//     const sql = "SELECT * FROM Books WHERE Book_ID = ?";
-//     return db.execute(sql, [id]);
-//   }
-
-//   static updateOne(data) {
-//     const sql =
-//       "UPDATE Books SET Title = ?, Author = ?, Comments = ? WHERE (Book_ID = ?)";
-//     const params = [data.Title, data.Author, data.Comments, data.id]; //literal
-//     // const params = Object.values(data) //shorter but less reliable
-//     return db.execute(sql, params);
-//   }
-
-//   static deleteOne(id) {
-//     const sql = "DELETE FROM Books WHERE Book_ID = ?";
-//     return db.execute(sql, [id]);
-//   }
 };
+l

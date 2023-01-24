@@ -7,19 +7,17 @@ const {
   getCreateBlog,
   postCreateBlog,
   getEditBlogById,
-  postEditBlogById,
+  // getBlogById,
+  putEditBlogById,
   deleteBlog,
 } = require("../controller/blogs.controller");
 
 router.get("/all", getAllBlogs);
-router.get("/edit/:id", getEditBlogById);
-router.post("/edit/:id", postEditBlogById);
-router.get("/edit/:id", postEditBlogById);
-router.get("/create", getCreateBlog);
-router.post("/create", postCreateBlog);
-router.delete("/delete/:id", deleteBlog);
+// router.get("/create", getCreateBlog);
+// router.post("/save", postCreateBlog);
+// // router.get("/:id", getBlogById);
+// router.get("/edit/:id", getEditBlogById);
+// router.put("/edit/:id", putEditBlogById);
+// router.delete("/delete/:id", deleteBlog);
 
 module.exports = router;
-
-
-//routeを作ったので、

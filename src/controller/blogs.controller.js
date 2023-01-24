@@ -1,75 +1,27 @@
-// リクエスト受付&レスポンス返却(routeからコールバック関数取ってくる)
+//リクエスト受付&レスポンス返却(routeからコールバック関数取ってくる)
+//to render a view and sends the rendered HTML string to the client.
+//get all data from the model
 
-// to render a view and sends the rendered HTML string to the client.
+const Blogs = require("../model/blogs.models");
+
 exports.getAllBlogs = (req, res) => {
-  Book.find()
+  Blogs.find()
     .then(([rows]) => {
+      //res.render() function: to render a view and sends the rendered HTML string to the client.
+
       res.render("books", { model: rows });
     })
     .catch((err) => console.error(err.message));
 };
 
-exports.getCreateBlog;
+// exports.getCreateBlog;
 
-exports.postCreateBlog;
+// exports.postCreateBlog;
 
-exports.getEditBlogById;
+// exports.getEditBlogById;
 
-exports.postEditBlogById;
+// exports.postEditBlogById;
 
-exports.deleteBlog;
+// exports.deleteBlog;
 
-// const Book = require("../model/book.model");
-
-// exports.getAllBooks = (req, res) => {
-//   Book.find()
-//     .then(([rows]) => {
-//       res.render("books", { model: rows });
-//     })
-//     .catch((err) => console.error(err.message));
-// };
-
-// exports.getCreateBook = (req, res) => {
-//   res.render("create", { model: {} });
-// };
-
-// exports.postCreateBook = (req, res) => {
-//   const { Title, Author, Comments } = req.body;
-
-//   const newBook = new Book(Title, Author, Comments);
-//   newBook
-//     .save()
-//     .then(() => {
-//       res.redirect("/books/all");
-//     })
-//     .catch((err) => console.error(err.message));
-// };
-
-// exports.getEditBookById = (req, res) => {
-//   const id = req.params.id;
-//   Book.findById(id)
-//     .then(([row]) => {
-//       console.log(row);
-//       res.render("edit", { model: row[0] });
-//     })
-//     .catch((err) => console.error(err.message));
-// };
-
-// exports.postEditBookById = (req, res) => {
-//   const id = req.params.id;
-//   const { Title, Author, Comments } = req.body;
-
-//   const dataToUpdate = { id, Title, Author, Comments };
-
-//   Book.updateOne(dataToUpdate).then(() => {
-//     res.redirect("/books/all")
-//   }).catch((err) => console.error(err.message));
-// };
-
-// exports.deleteBook = (req, res) => {
-//   const id = req.params.id;
-
-//   Book.deleteOne(id).then(() => {
-//     res.redirect("/books/all")
-//   }).catch((err) => console.error(err.message));
 // };
