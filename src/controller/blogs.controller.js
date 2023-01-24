@@ -1,3 +1,24 @@
+// リクエスト受付&レスポンス返却(routeからコールバック関数取ってくる)
+
+// to render a view and sends the rendered HTML string to the client.
+exports.getAllBlogs = (req, res) => {
+  Book.find()
+    .then(([rows]) => {
+      res.render("books", { model: rows });
+    })
+    .catch((err) => console.error(err.message));
+};
+
+exports.getCreateBlog;
+
+exports.postCreateBlog;
+
+exports.getEditBlogById;
+
+exports.postEditBlogById;
+
+exports.deleteBlog;
+
 // const Book = require("../model/book.model");
 
 // exports.getAllBooks = (req, res) => {

@@ -25,8 +25,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/blogs", () => {
-//routerにつなげて、処理の内容たいはmodelに書いていく
-  
+  //routerにつなげて、処理の内容たいはmodelに書いていく
+
   res.json();
 });
 
