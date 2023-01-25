@@ -1,0 +1,39 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Post your article</h1>
+
+<form action="/blogs/create" method="post">
+  <div>
+    <div>
+      <label for="Title">Title</label>
+      <div>
+        <input autofocus name="Title" value="<%= model.Title %>" />
+      </div>
+    </div>
+
+    <div>
+      <label for="Date">Date</label>
+      <div>
+        <input name="Date" value="<%= model.Date %>" />
+      </div>
+    </div>
+
+    <div>
+      <label for="Article">Article</label>
+      <div>
+        <textarea cols="20" name="Article" maxlength="32000" rows="7">
+<%= model.Article %></textarea
+        >
+      </div>
+    </div>
+
+    <div>
+      <label></label>
+      <div>
+        <input type="submit" value="Create" />
+        <a href="/blogs/all">Cancel</a>
+      </div>
+    </div>
+  </div>
+</form>
+<%- include("partials/footer.ejs") %>

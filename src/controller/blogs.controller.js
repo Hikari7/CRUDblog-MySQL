@@ -2,10 +2,10 @@
 //to render a view and sends the rendered HTML string to the client.
 //get all data from the model
 
-const Blogs = require("../model/blogs.models");
+const Blog = require("../model/blogs.models");
 
 exports.getAllBlogs = (req, res) => {
-  Blogs.find()
+  Blog.find()
     .then(([rows]) => {
       //dataをsql(modelのfindメソッドから取得)
       res.render("blogs", { model: rows });
@@ -13,19 +13,21 @@ exports.getAllBlogs = (req, res) => {
     .catch((err) => console.error(err.message));
 };
 
-// exports.getCreateBlog;
+exports.getCreateBlog = (req, res) => {
+  res.render("create", { model: {} });
+};
 
-// exports.postCreateBook = (req, res) => {
-//   const { BlogID, Title, Article } = req.body;
+exports.postCreateBlog = (req, res) => {
+  const { Title, Date, Article } = req.body;
 
-//   const newBook = new Book(BlogID, Title, Article);
-//   newBook
-//     .save()
-//     .then(() => {
-//       res.redirect("/books/all");
-//     })
-//     .catch((err) => console.error(err.message));
-// };
+  const newBlog = new Blog(Title, Date, Article);
+  newBlog
+    .save()
+    .then(() => {
+      res.redirect("/blogs/all");
+    })
+    .catch((err) => console.error(err.message));
+};
 
 // exports.getEditBlogById;
 

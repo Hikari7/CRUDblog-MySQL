@@ -38,6 +38,7 @@ const seedDB = () => {
     `CREATE TABLE Blogs (
             Blog_ID INT PRIMARY KEY AUTO_INCREMENT,
             Title VARCHAR(100) NOT NULL,
+            Date VARCHAR(100) NOT NULL,
             Article TEXT
             );`,
     (err) => {
@@ -51,10 +52,10 @@ const seedDB = () => {
   //内容を書く
   pool.query(
     `
-      INSERT INTO Blogs (Blog_ID, Title, Article) VALUES
-      (1, 'How To Eat', 'Absolutely salivating'),
-      (2, 'Does Your Cat Want to Murder You?', 'Absolutely salivating'),
-      (3, 'Dame da', 'Absolutely salivating');`,
+      INSERT INTO Blogs (Blog_ID, Title, Date, Article) VALUES
+      (1, 'How To Eat', '0901','Absolutely salivating'),
+      (2, 'Does Your Cat Want to Murder You?', '0901','Absolutely salivating'),
+      (3, 'Dame da','0901', 'Absolutely salivating');`,
     (err) => {
       if (err) {
         return console.error(err.message);
