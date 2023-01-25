@@ -10,7 +10,9 @@ const db = require("../util/mysql");
 //クラス関数作って、ここで処理を書いていく(インスタン化した方が処理しやすいから)
 module.exports = class Blog {
   constructor(Title, Date, Article) {
-    this.Tszcle = Article;
+    this.Title = Title;
+    this.Date = Date;
+    this.Article = Article;
   }
 
   //data saving(コンストラクターの引数取ってくる)
@@ -39,7 +41,7 @@ module.exports = class Blog {
 
   static updateOne(data) {
     const sql =
-      "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Book_ID = ?)";
+      "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Blog_ID = ?)";
     const params = [data.Title, data.Date, data.Article, data.id];
     // const params = Object.values(data);  ↑と全く同じ結果になる、でもobjectのorderがわからないのでless reliable
     return db.execute(sql, params);

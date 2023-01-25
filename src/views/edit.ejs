@@ -3,10 +3,10 @@
 <h1>Update a record</h1>
 
 <form action="/blogs/edit/<%= model.Blog_ID %>" method="post">
-  <div class="form-horizontal">
-    <div class="form-group row">
+  <div>
+    <div>
       <label class="col-form-label col-sm-2" for="Title">Title</label>
-      <div class="col-sm-8">
+      <div>
         <input
           autofocus
           class="form-control"
@@ -16,35 +16,26 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="col-form-label col-sm-2" for="Author">Date</label>
-      <div class="col-sm-7">
+    <div>
+      <label for="Author">Date</label>
+      <div>
         <input class="form-control" name="Date" value="<%= model.Date %>" />
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="col-form-label col-sm-2" for="Comments">Article</label>
-      <div class="col-sm-10">
-        <textarea
-          class="form-control"
-          cols="20"
-          name="Comments"
-          maxlength="32000"
-          rows="7"
-        >
-<%= model.Comments %></textarea
+    <div>
+      <label for="Article">Article</label>
+      <div>
+        <textarea cols="20" name="Article" maxlength="32000" rows="7">
+<%= model.Article %></textarea
         >
       </div>
     </div>
-    <div class="form-group row">
-      <label class="col-form-label col-sm-2"></label>
-      <div class="col-sm-10">
-        <input
-          type="submit"
-          value="Update"
-          class="btn btn-default btn-warning"
-        />
+
+    <div>
+      <label></label>
+      <div>
+        <input type="submit" value="Update" />
         <a class="btn btn-outline-dark cancel" href="/blogs/all">Cancel</a>
       </div>
     </div>
