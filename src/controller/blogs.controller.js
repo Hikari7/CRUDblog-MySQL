@@ -7,16 +7,25 @@ const Blogs = require("../model/blogs.models");
 exports.getAllBlogs = (req, res) => {
   Blogs.find()
     .then(([rows]) => {
-      //res.render() function: to render a view and sends the rendered HTML string to the client.
-
-      res.render("books", { model: rows });
+      //dataをsql(modelのfindメソッドから取得)
+      res.render("blogs", { model: rows });
     })
     .catch((err) => console.error(err.message));
 };
 
 // exports.getCreateBlog;
 
-// exports.postCreateBlog;
+// exports.postCreateBook = (req, res) => {
+//   const { BlogID, Title, Article } = req.body;
+
+//   const newBook = new Book(BlogID, Title, Article);
+//   newBook
+//     .save()
+//     .then(() => {
+//       res.redirect("/books/all");
+//     })
+//     .catch((err) => console.error(err.message));
+// };
 
 // exports.getEditBlogById;
 

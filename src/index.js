@@ -30,11 +30,8 @@ app.get("/", (req, res) => {
 
 //🌟app.use means “Run this on ALL requests”
 //( It is generally used for introducing middlewares in your application and can handle all type of HTTP requests.)
-app.use(
-  "/blogs",
-  blogsRouter
-  //routerにつなげて、処理の内容はmodelに書いていく
-);
+app.use("/blogs", blogsRouter);
+//routerにつなげて、処理の内容はmodelに書いていく
 
 const PORT = process.env.PORT || 8000;
 

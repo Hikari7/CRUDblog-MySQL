@@ -1,6 +1,14 @@
 <%- include("partials/header.ejs") %>
 
-<div>Blogs</div>
-<!-- for eachで回していく？ -->
+<div>
+  <h1>List of Blogs (<%= model.length %>)</h1>
+  <ul>
+    <% for (const Blog of model) { %>
+    <li><%= Blog.Blog_ID %></li>
+    <li><%= Blog.Title %></li>
+    <li><%= Blog.Article %></li>
+    <% } %>
+  </ul>
+</div>
 
 <%- include("partials/footer.ejs") %>
