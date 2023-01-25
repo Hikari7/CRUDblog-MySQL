@@ -10,9 +10,7 @@ const db = require("../util/mysql");
 //クラス関数作って、ここで処理を書いていく(インスタン化した方が処理しやすいから)
 module.exports = class Blog {
   constructor(Title, Date, Article) {
-    this.Title = Title;
-    this.Date = Date;
-    this.Article = Article;
+    this.Tszcle = Article;
   }
 
   //data saving(コンストラクターの引数取ってくる)
@@ -33,7 +31,7 @@ module.exports = class Blog {
     return db.query(sql);
   }
 
-  //✅多分ここで指定した同じ関数名のが、controllerに渡って、引数もそのまま引き渡される
+  //controllerからfindByIdの引数を渡されてる
   static findById(id) {
     const sql = "SELECT * FROM Blogs WHERE Blog_ID = ?";
     return db.execute(sql, [id]);
@@ -52,5 +50,3 @@ module.exports = class Blog {
     return db.execute(sql, [id]);
   }
 };
-
-//✅EJSを書く所から始める🦄

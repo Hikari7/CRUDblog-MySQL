@@ -1,0 +1,54 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Update a record</h1>
+
+<form action="/blogs/edit/<%= model.Blog_ID %>" method="post">
+  <div class="form-horizontal">
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="Title">Title</label>
+      <div class="col-sm-8">
+        <input
+          autofocus
+          class="form-control"
+          name="Title"
+          value="<%= model.Title %>"
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="Author">Date</label>
+      <div class="col-sm-7">
+        <input class="form-control" name="Date" value="<%= model.Date %>" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="Comments">Article</label>
+      <div class="col-sm-10">
+        <textarea
+          class="form-control"
+          cols="20"
+          name="Comments"
+          maxlength="32000"
+          rows="7"
+        >
+<%= model.Comments %></textarea
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-10">
+        <input
+          type="submit"
+          value="Update"
+          class="btn btn-default btn-warning"
+        />
+        <a class="btn btn-outline-dark cancel" href="/blogs/all">Cancel</a>
+      </div>
+    </div>
+  </div>
+</form>
+
+<%- include("partials/footer.ejs") %>

@@ -8,6 +8,9 @@ exports.getAllBlogs = (req, res) => {
     .then(([rows]) => {
       //dataをsql(modelのfindメソッドから取得)
       //modelがmodelsで作られたrowsのオブジェクトを取ることができる
+
+      //modelで作られたfindメソッドを使って、then.catchでその後の処理を書く
+      //res.renderはexpressのメソッドでファイルを返す、第二引数でkey:valueをオブジェクトを設定してそのファイル内で使えるようにする
       res.render("blogs", { model: rows });
     })
     .catch((err) => console.error(err.message));
@@ -25,7 +28,6 @@ exports.postCreateBlog = (req, res) => {
   newBlog
     .save()
     .then(([row]) => {
-      // console.log(row);
       //affectedRowsは、間違いなく新しいblogがpostされたら1ってコンソールに出力される
       if (row.affectedRows === 1) res.redirect("/blogs/all");
     })
@@ -34,11 +36,10 @@ exports.postCreateBlog = (req, res) => {
 
 //GetとPostはセットなので！
 exports.getEditBlogById = (req, res) => {
-  //✅なんでidの取得にparamsを設定？
+  //このidはBlog.findBy(id)に渡されるよ
   const id = req.params.id;
   Blog.findById(id)
     .then(([row]) => {
-      //✅[row]の中の0番目のarray(id)が欲しいから指定する??
       res.render("edit", { model: row[0] });
     })
     .catch((err) => console.log(err.message));

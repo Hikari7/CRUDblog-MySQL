@@ -1,14 +1,37 @@
 <%- include("partials/header.ejs") %>
 
-<div>
-  <h1>List of Blogs (<%= model.length %>)</h1>
-  <ul>
-    <% for (const Blog of model) { %>
-    <li><%= Blog.Date %></li>
-    <li><%= Blog.Title %></li>
-    <li><%= Blog.Article %></li>
-    <% } %>
-  </ul>
-</div>
+<h1>List of books (<%= model.length %>)</h1>
 
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Article</th>
+        <th>
+          <a href="/blogs/create">Add</a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const blog of model) { %>
+      <tr>
+        <td><%= blog.Title %></td>
+        <td><%= blog.Date %></td>
+        <td><%= blog.Article %></td>
+        <td>
+          <a href="/blogs/edit/<%= blog.Blog_ID %>">Edit</a>
+          <form
+            action="/blogs/delete/<%= blog.Blog_ID %>?_method=DELETE"
+            method="post"
+          >
+            <input type="submit" value="Delete" />
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
 <%- include("partials/footer.ejs") %>
