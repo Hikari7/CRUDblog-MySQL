@@ -1,6 +1,7 @@
 //DB関連の処理を担当 (CRUDの操作, communication with the data)
 const db = require("../util/mysql");
 //データベースに接続された状況をimport, ここで読み込んでいく操作をする
+//modelsからcontrollerに関数渡してる、で、controllerでEJSのファイルのpathとかrouterの処理をしている
 
 //MySQLは下の2つのメソッド(SQlightはrunメソッド)
 //query: 実行したいSQL文をセット、SQLに必要ならパラメーターをセット、SQLを実行(引数はいらない)
@@ -32,8 +33,24 @@ module.exports = class Blog {
     return db.query(sql);
   }
 
+  //✅多分ここで指定した同じ関数名のが、controllerに渡って、引数もそのまま引き渡される
   static findById(id) {
     const sql = "SELECT * FROM Blogs WHERE Blog_ID = ?";
-    db.execute(sql, [id]);
+    return db.execute(sql, [id]);
+  }
+
+  static updateOne(data) {
+    const sql =
+      "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Book_ID = ?)";
+    const params = [data.Title, data.Date, data.Article, data.id];
+    // const params = Object.values(data);  ↑と全く同じ結果になる、でもobjectのorderがわからないのでless reliable
+    return db.execute(sql, params);
+  }
+
+  static deleteOne(id) {
+    const sql = "DELETE FROM Blogs WHERE Blog_ID = ?";
+    return db.execute(sql, [id]);
   }
 };
+
+//✅EJSを書く所から始める🦄

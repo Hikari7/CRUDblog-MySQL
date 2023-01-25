@@ -1,13 +1,13 @@
 //リクエスト受付&レスポンス返却(routeからコールバック関数取ってくる)
 //to render a view and sends the rendered HTML string to the client.
 //get all data from the model
-
 const Blog = require("../model/blogs.models");
 
 exports.getAllBlogs = (req, res) => {
   Blog.find()
     .then(([rows]) => {
       //dataをsql(modelのfindメソッドから取得)
+      //modelがmodelsで作られたrowsのオブジェクトを取ることができる
       res.render("blogs", { model: rows });
     })
     .catch((err) => console.error(err.message));
@@ -18,21 +18,49 @@ exports.getCreateBlog = (req, res) => {
 };
 
 exports.postCreateBlog = (req, res) => {
+  //req.bodyでHTMLのinputのnameで取得した値を受け取るようになる
   const { Title, Date, Article } = req.body;
 
   const newBlog = new Blog(Title, Date, Article);
   newBlog
     .save()
-    .then(() => {
-      res.redirect("/blogs/all");
+    .then(([row]) => {
+      // console.log(row);
+      //affectedRowsは、間違いなく新しいblogがpostされたら1ってコンソールに出力される
+      if (row.affectedRows === 1) res.redirect("/blogs/all");
     })
     .catch((err) => console.error(err.message));
 };
 
-// exports.getEditBlogById;
+//GetとPostはセットなので！
+exports.getEditBlogById = (req, res) => {
+  //✅なんでidの取得にparamsを設定？
+  const id = req.params.id;
+  Blog.findById(id)
+    .then(([row]) => {
+      //✅[row]の中の0番目のarray(id)が欲しいから指定する??
+      res.render("edit", { model: row[0] });
+    })
+    .catch((err) => console.log(err.message));
+};
 
-// exports.postEditBlogById;
+exports.postEditBlogById = (req, res) => {
+  const id = req.params.id;
+  const { Title, Date, Article } = req.body;
 
-// exports.deleteBlog;
+  //4つのオブジェクトをまとめる
+  const dataToUpdate = { id, Title, Date, Article };
+  Blog.updateOne(dataToUpdate)
+    .then(() => {
+      res.redirect("/blogs/all");
+    })
+    .catch((err) => console.log(err.message));
+};
 
-// };
+exports.deleteBlog = (req, res) => {
+  const id = req.params.id;
+  //redirectするだけ
+  Blog.deleteOne(id)
+    .then(res.redirect("/blogs/all"))
+    .catch((err) => console.log(err.message));
+};
