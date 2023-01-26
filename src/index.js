@@ -5,15 +5,19 @@ const sessions = require("express-session");
 const methodOverride = require("method-override");
 
 //🍪の設定
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
 const app = express();
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //mysqlを読み込ませる
 const dbConnection = require("./util/mysql");
+const dbConnection2 = require("./util/mysql.auth");
 
 const blogsRouter = require("./routers/blogs.router");
+const authRouter = require("./routers/auth.router");
 
 //.useはmiddleware(req, resの仲介)の設定
 app.use(express.urlencoded({ extended: false }));
@@ -30,13 +34,10 @@ app.set("views", path.join(__dirname, "views"));
 //middleware from express-session
 const oneDay = 24 * 60 * 60 * 1000;
 app.use(
-  //default value
   sessions({
-    ///???
-    // secret: process.env.SECRET_KEY,
+    secret: process.env.SECRET_KEY,
     saveUnitialized: true,
-    resave: false,
-    //cookie stays in your server for one day
+    resave: true,
     cookie: { maxAge: oneDay },
   })
 );
@@ -48,22 +49,24 @@ let session;
 //( It is only for handling GET HTTP requests.)
 app.get("/", (req, res) => {
   session = req.session;
- // cookieがなければindexにrenderされる;
+  // cookieがなければindexにrenderされる;
   if (session.userid) {
-    res.send(`Welcome! ${session.userid} <a href="/logout">Logout</a>`);
+    res.send(`Welcome!  <a href="/logout">Logout</a>`);
   } else {
     res.render("index");
   }
+
+  console.log(session.userid);
 });
 
 //✅user:idにした方がいい？
-app.post("/user", (req, res) => {
+app.post("/:userId", (req, res) => {
   const { username, password } = req.body;
 
   if (username === "admin" && password === "admin") {
-    session = req.session;
-    session.userid = username;
-    res.send(`Welcome! ${username} <a href="/logout">Logout</a>`);
+    // session = req.session;
+    // session.userid = username;
+    // res.send(`Welcome! ${username} <a href="/logout">Logout</a>`);
   } else {
     res.send("Wrong username or password");
   }
@@ -72,12 +75,14 @@ app.post("/user", (req, res) => {
 app.get("/logout", (req, res) => {
   //sessionを切らすようにする
   req.session.destroy();
+  np;
   res.redirect("/");
 });
 
 //🌟app.use means “Run this on ALL requests”
 //( It is generally used for introducing middlewares in your application and can handle all type of HTTP requests.)
-app.use("/blogs", blogsRouter);
+app.use("/user", blogsRouter);
+app.use("/", authRouter);
 //routerにつなげて、処理の内容はmodelに書いていく
 
 const PORT = process.env.PORT || 8000;
@@ -87,6 +92,7 @@ app.listen(PORT, async () => {
 
   //catch promise+
   const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
+  const [userData] = await dbConnection2.query("SELECT 2"); //{"1":1}  resulting the value of "SELECT 1"
   //retrun the first element: data, and the second element: metadata
   //   console.log(connect);
   //   if (data)

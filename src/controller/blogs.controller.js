@@ -65,3 +65,7 @@ exports.deleteBlog = (req, res) => {
     .then(res.redirect("/blogs/all"))
     .catch((err) => console.log(err.message));
 };
+
+exports.getUserBlog = (req, res) => {
+  const id = req.params.id;
+};

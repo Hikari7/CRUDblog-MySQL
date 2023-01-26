@@ -23,7 +23,7 @@ pool.query(sql, (err, data) => {
     //seedDB: create table and implant data
     seedDB();
   } else {
-    console.log("Ta  ble 'Blogs' exists");
+    console.log("Table 'Blogs' exists");
   }
 });
 
@@ -48,6 +48,9 @@ const seedDB = () => {
       console.log("Successful creation of the 'Blogs' table");
     }
   );
+
+
+
 
   //内容を書く
   pool.query(
