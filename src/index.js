@@ -1,14 +1,19 @@
 require("dotenv").config();
-const express = require("express");
 const path = require("path");
+const express = require("express");
+const sessions = require("express-session");
 const methodOverride = require("method-override");
+
+//🍪の設定
+// const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+
+const app = express();
 
 //mysqlを読み込ませる
 const dbConnection = require("./util/mysql");
 
 const blogsRouter = require("./routers/blogs.router");
-
-const app = express();
 
 //.useはmiddleware(req, resの仲介)の設定
 app.use(express.urlencoded({ extended: false }));
@@ -19,13 +24,55 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //exporessの初期化設定(拡張子を省略して記述できる)
 app.set("view engine", "ejs");
-app.set("views", "src/views");
+// app.set("views", "src/views");
+app.set("views", path.join(__dirname, "views"));
+
+//middleware from express-session
+const oneDay = 24 * 60 * 60 * 1000;
+app.use(
+  //default value
+  sessions({
+    ///???
+    // secret: process.env.SECRET_KEY,
+    saveUnitialized: true,
+    resave: false,
+    //cookie stays in your server for one day
+    cookie: { maxAge: oneDay },
+  })
+);
+
+let session;
 
 // Route handler that sends a message at
 //app.get means “Run this on a GET request, for the given URL”
 //( It is only for handling GET HTTP requests.)
 app.get("/", (req, res) => {
-  res.render("index", { title: "login" });
+  session = req.session;
+ // cookieがなければindexにrenderされる;
+  if (session.userid) {
+    res.send(`Welcome! ${session.userid} <a href="/logout">Logout</a>`);
+  } else {
+    res.render("index");
+  }
+});
+
+//✅user:idにした方がいい？
+app.post("/user", (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === "admin" && password === "admin") {
+    session = req.session;
+    session.userid = username;
+    res.send(`Welcome! ${username} <a href="/logout">Logout</a>`);
+  } else {
+    res.send("Wrong username or password");
+  }
+});
+
+app.get("/logout", (req, res) => {
+  //sessionを切らすようにする
+  req.session.destroy();
+  res.redirect("/");
 });
 
 //🌟app.use means “Run this on ALL requests”
@@ -38,7 +85,7 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, async () => {
   console.log(`Server is up on PORT ${PORT} 🚀`);
 
-  //catch promise
+  //catch promise+
   const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
   //retrun the first element: data, and the second element: metadata
   //   console.log(connect);

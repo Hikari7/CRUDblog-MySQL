@@ -23,7 +23,7 @@ pool.query(sql, (err, data) => {
     //seedDB: create table and implant data
     seedDB();
   } else {
-    console.log("Table 'Blogs' exists");
+    console.log("Ta  ble 'Blogs' exists");
   }
 });
 
