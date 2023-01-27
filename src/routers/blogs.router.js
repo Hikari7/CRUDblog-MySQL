@@ -10,7 +10,7 @@ const {
   postEditBlogById,
   deleteBlog,
 
-  getUserBlog,
+  // getUserBlog,
 } = require("../controller/blogs.controller");
 
 router.get("/all", getAllBlogs);
@@ -20,6 +20,6 @@ router.post("/edit/:id", postEditBlogById);
 router.get("/edit/:id", getEditBlogById);
 router.delete("/delete/:id", deleteBlog);
 
-router.get("/:id/blog", getUserBlog);
+// router.get("/:id/blog", getUserBlog);
 
 module.exports = router;
