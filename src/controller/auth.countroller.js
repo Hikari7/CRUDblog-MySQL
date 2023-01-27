@@ -42,3 +42,8 @@ exports.postLoginPage = (req, res) => {
     })
     .catch((err) => console.error(err.message));
 };
+
+exports.getLogoutPage = (req, res) => {
+  req.session.destroy();
+  res.render("index");
+};

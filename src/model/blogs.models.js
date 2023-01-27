@@ -17,7 +17,6 @@ module.exports = class Blog {
 
   //data saving(コンストラクターの引数取ってくる)
   save() {
-    //placeholer = ?
     const sql = "INSERT INTO Blogs (Title, Date, Article) VALUES (?, ?, ?)";
     const params = [this.Title, this.Date, this.Article];
 
@@ -43,7 +42,6 @@ module.exports = class Blog {
     const sql =
       "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Blog_ID = ?)";
     const params = [data.Title, data.Date, data.Article, data.id];
-    // const params = Object.values(data);  ↑と全く同じ結果になる、でもobjectのorderがわからないのでless reliable
     return db.execute(sql, params);
   }
 
