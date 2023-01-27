@@ -17,7 +17,6 @@ const dbConnection = require("./util/mysql");
 
 const blogsRouter = require("./routers/blogs.router");
 const authRouter = require("./routers/auth.router");
-const { request } = require("http");
 
 //.useはmiddleware(req, resの仲介)の設定
 app.use(express.urlencoded({ extended: false }));
@@ -37,11 +36,25 @@ app.use(
   sessions({
     secret: process.env.SECRET_KEY,
     saveUninitialized: true,
-    // resave: true,
     resave: false,
     cookie: { maxAge: oneDay },
   })
 );
+
+//🌟app.use means “Run this on ALL requests”
+//( It is generally used for introducing middlewares in your application and can handle all type of HTTP requests.)
+app.use("/blogs", blogsRouter);
+app.use("/", authRouter);
+//routerにつなげて、処理の内容はmodelに書いていく
+
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, async () => {
+  console.log(`Server is up on PORT ${PORT} 🚀`);
+
+  //catch promise+
+  const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
+});
 
 // let session;
 
@@ -69,21 +82,6 @@ app.use(
 //   req.session.destroy();
 //   res.redirect("/");
 // });
-
-//🌟app.use means “Run this on ALL requests”
-//( It is generally used for introducing middlewares in your application and can handle all type of HTTP requests.)
-app.use("/blogs", blogsRouter);
-app.use("/", authRouter);
-//routerにつなげて、処理の内容はmodelに書いていく
-
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, async () => {
-  console.log(`Server is up on PORT ${PORT} 🚀`);
-
-  //catch promise+
-  const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
-});
 
 //✅user:idにした方がいい？
 // app.post("/:userId", (req, res) => {

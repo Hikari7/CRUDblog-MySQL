@@ -54,9 +54,9 @@ module.exports = class Blog {
     return db.execute(sql, [id]);
   }
 
-  static getUserBlog(id) {
-    const sql = "SELECT * FROM Blogs WHERE AUTHOR = ?";
-    // const params = [謎];
-    return db.execute(sql, params);
-  }
+  // static getUserBlog(id) {
+  //   const sql = "SELECT * FROM Blogs WHERE AUTHOR = ?";
+  //   // const params = [謎];
+  //   return db.execute(sql, params);
+  // }
 };

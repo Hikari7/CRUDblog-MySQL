@@ -13,7 +13,7 @@ module.exports = class User {
     return db.execute(sql, params);
   }
 
-  //validationする
+  //check the validation
   static validate(Name, Pw) {
     const sql = `SELECT * FROM Users WHERE Name = ? AND Pw = ?;`;
     const params = [Name, Pw];

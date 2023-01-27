@@ -53,9 +53,9 @@ const seedDB_blog = () => {
   pool.query(
     `
     INSERT INTO Blogs (Blog_ID, Title, Date, Article, Author) VALUES
-    (1, 'How To Eat', '0901','Absolutely salivating', '1'),
-    (2, 'Does Your Cat Want to Murder You?', '0901','Absolutely salivating', '2'),
-    (3, 'Dame da','0901', 'Absolutely salivating', "Hikari");`,
+    (1, 'How To Eat', '0901','Absolutely salivating', 'asdasd'),
+    (2, 'Does Your Cat Want to Murder You?', '0901','Absolutely salivating', 'asdad'),
+    (3, 'Dame da','0901', 'Absolutely salivating', 'Hikari');`,
     (err) => {
       if (err) {
         return console.error(err.message);
@@ -100,7 +100,7 @@ const seedDB_User = () => {
     `
     INSERT INTO Users (User_ID, Name, Pw) VALUES
     (1, 'Hikari', 'Hikari0712'),
-    (2, 'Koro', 'Koro1008'),
+    (2, 'Jin', 'Jin1229'),
     (3, 'Jungkook', 'Jungkook0901');`,
     (err) => {
       if (err) {

@@ -1,6 +1,6 @@
 // //create a new router object
-
 const router = require("express").Router();
+// const { checkSession } = require("../util/checkSession");
 
 const {
   getAllBlogs,

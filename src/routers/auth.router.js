@@ -5,15 +5,13 @@ const { checkSession } = require("../util/checkSession");
 const {
   getLoginPage,
   getRegister,
-  //   postLogin,
   postRegister,
+  //postLoginPage
+  //getLogout
 } = require("../controller/auth.countroller");
 
 router.get("/", getLoginPage);
 router.get("/register", getRegister);
-// router.get("/", postLogin);
-router.post("/register", postRegister);
+router.post("/register", checkSession, postRegister);
 
 module.exports = router;
-
-
