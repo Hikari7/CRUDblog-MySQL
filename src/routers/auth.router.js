@@ -6,13 +6,13 @@ const {
   getLoginPage,
   getRegister,
   postRegister,
-  //postLoginPage
+  postLoginPage,
   //getLogout
 } = require("../controller/auth.countroller");
 
 router.get("/", getLoginPage);
 router.get("/register", getRegister);
 router.post("/register", postRegister);
-
+router.post("/", postLoginPage);
 
 module.exports = router;

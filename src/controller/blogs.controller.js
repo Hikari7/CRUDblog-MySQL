@@ -66,6 +66,6 @@ exports.deleteBlog = (req, res) => {
     .catch((err) => console.log(err.message));
 };
 
-exports.getUserBlog = (req, res) => {
-  const id = req.params.id;
-};
+// exports.getUserBlog = (req, res) => {
+//   const id = req.params.id;
+// };

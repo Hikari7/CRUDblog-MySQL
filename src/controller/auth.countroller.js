@@ -28,6 +28,17 @@ exports.postRegister = (req, res) => {
     .catch((err) => console.error(err.message));
 };
 
-exports.postLogin = (req, res) => {
-  //make a valiation here?
+exports.postLoginPage = (req, res) => {
+  const { Name, Pw } = req.body;
+  User.validate(Name, Pw)
+    .then(([data]) => {
+      if (data.length === 0) {
+        res.redirect("/");
+      } else {
+        session = req.session;
+        session.userid = Name;
+        res.redirect("/blogs/all");
+      }
+    })
+    .catch((err) => console.error(err.message));
 };
