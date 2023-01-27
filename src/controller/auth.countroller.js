@@ -8,7 +8,7 @@ exports.getLoginPage = (req, res) => {
 
 //(register pageに飛ぶ)
 exports.getRegister = (req, res) => {
-  res.render("register");
+  res.render("register", { model: {} });
 };
 
 //register
@@ -19,10 +19,10 @@ exports.postRegister = (req, res) => {
   const newUser = new User(Name, Pw);
   newUser
     .save()
-    .then(() => {
+    .then(([row]) => {
       //affectedRowsは、間違いなく新しいblogがpostされたら1ってコンソールに出力される
       //   if (row.affectedRows === 1)
-      res.redirect("/");
+      if (row.affectedRows === 1) res.redirect("/");
       console.log("success!");
     })
     .catch((err) => console.error(err.message));

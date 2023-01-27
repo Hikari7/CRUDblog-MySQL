@@ -51,10 +51,4 @@ module.exports = class Blog {
     const sql = "DELETE FROM Blogs WHERE Blog_ID = ?";
     return db.execute(sql, [id]);
   }
-
-  // static getUserBlog(id) {
-  //   const sql = "SELECT * FROM Blogs WHERE AUTHOR = ?";
-  //   // const params = [謎];
-  //   return db.execute(sql, params);
-  // }
 };

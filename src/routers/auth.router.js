@@ -12,6 +12,7 @@ const {
 
 router.get("/", getLoginPage);
 router.get("/register", getRegister);
-router.post("/register", checkSession, postRegister);
+router.post("/register", postRegister);
+
 
 module.exports = router;
