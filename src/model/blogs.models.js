@@ -9,19 +9,17 @@ const db = require("../util/mysql");
 
 //クラス関数作って、ここで処理を書いていく(インスタン化した方が処理しやすいから)
 module.exports = class Blog {
-  constructor(Title, Date, Article, Author) {
+  constructor(Title, Date, Article) {
     this.Title = Title;
     this.Date = Date;
     this.Article = Article;
-    this.Author = Author;
   }
 
   //data saving(コンストラクターの引数取ってくる)
   save() {
     //placeholer = ?
-    const sql =
-      "INSERT INTO Blogs (Title, Date, Article, Author) VALUES (?, ?, ?, ?)";
-    const params = [this.Title, this.Date, this.Article, this.Author];
+    const sql = "INSERT INTO Blogs (Title, Date, Article) VALUES (?, ?, ?)";
+    const params = [this.Title, this.Date, this.Article];
 
     return db.execute(sql, params);
   }
@@ -43,8 +41,8 @@ module.exports = class Blog {
 
   static updateOne(data) {
     const sql =
-      "UPDATE Blogs SET Title = ?, Date = ?, Article = ?, Author = ?, WHERE (Blog_ID = ?)";
-    const params = [data.Title, data.Date, data.Article, data.id, data.Author];
+      "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Blog_ID = ?)";
+    const params = [data.Title, data.Date, data.Article, data.id];
     // const params = Object.values(data);  ↑と全く同じ結果になる、でもobjectのorderがわからないのでless reliable
     return db.execute(sql, params);
   }
