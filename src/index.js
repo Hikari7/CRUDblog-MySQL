@@ -14,7 +14,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //mysqlを読み込ませる
 const dbConnection = require("./util/mysql");
-const dbConnection2 = require("./util/mysql.auth");
 
 const blogsRouter = require("./routers/blogs.router");
 const authRouter = require("./routers/auth.router");
@@ -60,17 +59,17 @@ app.get("/", (req, res) => {
 });
 
 //✅user:idにした方がいい？
-app.post("/:userId", (req, res) => {
-  const { username, password } = req.body;
+// app.post("/:userId", (req, res) => {
+//   const { username, password } = req.body;
 
-  if (username === "admin" && password === "admin") {
-    // session = req.session;
-    // session.userid = username;
-    // res.send(`Welcome! ${username} <a href="/logout">Logout</a>`);
-  } else {
-    res.send("Wrong username or password");
-  }
-});
+//   if (username === "admin" && password === "admin") {
+//     // session = req.session;
+//     // session.userid = username;
+//     // res.send(`Welcome! ${username} <a href="/logout">Logout</a>`);
+//   } else {
+//     res.send("Wrong username or password");
+//   }
+// });
 
 app.get("/logout", (req, res) => {
   //sessionを切らすようにする
@@ -92,7 +91,7 @@ app.listen(PORT, async () => {
 
   //catch promise+
   const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
-  // const [userData] = await dbConnection2.query("SELECT 2"); //{"1":1}  resulting the value of "SELECT 1"
+
   //retrun the first element: data, and the second element: metadata
   //   console.log(connect);
   //   if (data)
