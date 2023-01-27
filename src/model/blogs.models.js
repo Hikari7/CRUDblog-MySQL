@@ -9,17 +9,19 @@ const db = require("../util/mysql");
 
 //クラス関数作って、ここで処理を書いていく(インスタン化した方が処理しやすいから)
 module.exports = class Blog {
-  constructor(Title, Date, Article) {
+  constructor(Title, Date, Article, Author) {
     this.Title = Title;
     this.Date = Date;
     this.Article = Article;
+    this.Author = Author;
   }
 
   //data saving(コンストラクターの引数取ってくる)
   save() {
     //placeholer = ?
-    const sql = "INSERT INTO Blogs (Title, Date, Article) VALUES (?, ?, ?)";
-    const params = [this.Title, this.Date, this.Article];
+    const sql =
+      "INSERT INTO Blogs (Title, Date, Article, Author) VALUES (?, ?, ?, ?)";
+    const params = [this.Title, this.Date, this.Article, this.Author];
 
     return db.execute(sql, params);
   }
@@ -41,8 +43,8 @@ module.exports = class Blog {
 
   static updateOne(data) {
     const sql =
-      "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Blog_ID = ?)";
-    const params = [data.Title, data.Date, data.Article, data.id];
+      "UPDATE Blogs SET Title = ?, Date = ?, Article = ?, Author = ?, WHERE (Blog_ID = ?)";
+    const params = [data.Title, data.Date, data.Article, data.id, data.Author];
     // const params = Object.values(data);  ↑と全く同じ結果になる、でもobjectのorderがわからないのでless reliable
     return db.execute(sql, params);
   }
@@ -50,5 +52,11 @@ module.exports = class Blog {
   static deleteOne(id) {
     const sql = "DELETE FROM Blogs WHERE Blog_ID = ?";
     return db.execute(sql, [id]);
+  }
+
+  static getUserBlog(id) {
+    const sql = "SELECT * FROM Blogs WHERE AUTHOR = ?";
+    // const params = [謎];
+    return db.execute(sql, params);
   }
 };

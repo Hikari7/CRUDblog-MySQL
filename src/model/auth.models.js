@@ -1,4 +1,4 @@
-const db = require("../util/mysql.auth");
+const db = require("../util/mysql");
 
 module.exports = class User {
   constructor(Name, Pw) {

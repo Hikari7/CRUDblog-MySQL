@@ -92,7 +92,7 @@ app.listen(PORT, async () => {
 
   //catch promise+
   const [data] = await dbConnection.query("SELECT 1"); //{"1":1}  resulting the value of "SELECT 1"
-  const [userData] = await dbConnection2.query("SELECT 2"); //{"1":1}  resulting the value of "SELECT 1"
+  // const [userData] = await dbConnection2.query("SELECT 2"); //{"1":1}  resulting the value of "SELECT 1"
   //retrun the first element: data, and the second element: metadata
   //   console.log(connect);
   //   if (data)
