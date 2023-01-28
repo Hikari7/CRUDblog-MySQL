@@ -22,9 +22,9 @@ exports.getCreateBlog = (req, res) => {
 
 exports.postCreateBlog = (req, res) => {
   //req.bodyでHTMLのinputのnameで取得した値を受け取るようになる
-  const { Title, Date, Article } = req.body;
+  const { Title, Date, Article, Author } = req.body;
 
-  const newBlog = new Blog(Title, Date, Article);
+  const newBlog = new Blog(Title, Date, Article, Author);
   newBlog
     .save()
     .then(([row]) => {
@@ -47,10 +47,10 @@ exports.getEditBlogById = (req, res) => {
 
 exports.postEditBlogById = (req, res) => {
   const id = req.params.id;
-  const { Title, Date, Article } = req.body;
+  const { Title, Date, Article, Author } = req.body;
 
-  //4つのオブジェクトをまとめる
-  const dataToUpdate = { id, Title, Date, Article };
+  //オブジェクトをまとめる
+  const dataToUpdate = { id, Title, Date, Article, Author };
   Blog.updateOne(dataToUpdate)
     .then(() => {
       res.redirect("/blogs/all");
@@ -65,7 +65,3 @@ exports.deleteBlog = (req, res) => {
     .then(res.redirect("/blogs/all"))
     .catch((err) => console.log(err.message));
 };
-
-// exports.getUserBlog = (req, res) => {
-//   const id = req.params.id;
-// };
