@@ -1,7 +1,6 @@
 const router = require("express").Router();
-const { checkSession } = require("../util/checkSession");
+// const { checkSession } = require("../util/checkSession");
 
-//auth用にcontroller作らなきゃいけない
 const {
   getLoginPage,
   getRegister,
