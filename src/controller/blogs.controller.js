@@ -47,10 +47,10 @@ exports.getEditBlogById = (req, res) => {
 
 exports.postEditBlogById = (req, res) => {
   const id = req.params.id;
-  const { Title, Date, Article, Author } = req.body;
+  const { Title, Date, Article } = req.body;
 
   //オブジェクトをまとめる
-  const dataToUpdate = { id, Title, Date, Article, Author };
+  const dataToUpdate = { id, Title, Date, Article };
   Blog.updateOne(dataToUpdate)
     .then(() => {
       res.redirect("/blogs/all");
