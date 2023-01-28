@@ -1,10 +1,43 @@
 <%- include("partials/header.ejs") %>
 
-<body>
- This is home
+<header
+  class="bg-stone-800 px-6 text-slate-50 py-6 border-b-2 border-slate-50 tracking-widest"
+>
+  <nav class="flex justify-between">
+    <div class="px-3 py-2">Supar simple board app</div>
+    <div class="mx-0 ml-5">
+      <button
+        class="tracking-wider bg-transparent hover:bg-stone-200 text-slate-50 font-semibold hover:text-stone-500 py-2 px-4 border border-slate-50 hover:border-transparent rounded transition delay-150;"
+      >
+        <a href="/register">Register</a>
+      </button>
+      <button
+        class="tracking-wider ml-4 bg-transparent hover:bg-stone-200 text-slate-50 font-semibold hover:text-stone-500 py-2 px-4 border border-slate-50 hover:border-transparent rounded transition delay-150;"
+      >
+        <a href="/login">Login</a>
+      </button>
+    </div>
+  </nav>
+</header>
 
- <a href="/register">Register</a>
- <a href="/login">Login</a>
-</body>
+<div class="bg-stone-700 h-screen tracking-widest">
+  <div class="bg-stone-800 h-3/5 tracking-widest">
+    <div class="w-3/4 justify-center text-slate-100 ml-16">
+      <h1 class="text-7xl pt-48">What's on your mind?</h1>
+      <h3 class="font-sans text-2xl pt-14">
+        This is a super simple CRUD todo app.
+      </h3>
+
+      <button
+        class="mt-10 tracking-wider bg-transparent hover:bg-stone-200 text-slate-50 font-semibold hover:text-stone-500 py-2 px-4 border border-slate-50 hover:border-transparent rounded transition delay-150;"
+      >
+        <a href="/register">Start share</a>
+      </button>
+    </div>
+  </div>
+  <p class="flex justify-center items-center h-52  text-slate-100 tracking-widest">
+    You can create, read, edit, delete❤️
+  </p>
+</div>
 
 <%- include("partials/footer.ejs") %>
