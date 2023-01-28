@@ -37,7 +37,9 @@ exports.postLoginPage = (req, res) => {
       } else {
         session = req.session;
         session.userid = Name;
+        console.log(Name);
         res.redirect("/blogs/all");
+        // res.render("blogs", Name);
       }
     })
     .catch((err) => console.error(err.message));

@@ -4,6 +4,7 @@
 const Blog = require("../model/blogs.models");
 
 exports.getAllBlogs = (req, res) => {
+  const Name = req.session.userid;
   Blog.find()
     .then(([rows]) => {
       //dataをsql(modelのfindメソッドから取得)
@@ -11,7 +12,7 @@ exports.getAllBlogs = (req, res) => {
 
       //modelで作られたfindメソッドを使って、then.catchでその後の処理を書く
       //res.renderはexpressのメソッドでファイルを返す、第二引数でkey:valueをオブジェクトを設定してそのファイル内で使えるようにする
-      res.render("blogs", { model: rows });
+      res.render("blogs", { model: rows, name: Name });
     })
     .catch((err) => console.error(err.message));
 };
@@ -22,9 +23,10 @@ exports.getCreateBlog = (req, res) => {
 
 exports.postCreateBlog = (req, res) => {
   //req.bodyでHTMLのinputのnameで取得した値を受け取るようになる
-  const { Title, Date, Article, Author } = req.body;
+  const Name = req.session.userid;
+  const { Title, Date, Article } = req.body;
 
-  const newBlog = new Blog(Title, Date, Article, Author);
+  const newBlog = new Blog(Title, Date, Article, Name);
   newBlog
     .save()
     .then(([row]) => {
