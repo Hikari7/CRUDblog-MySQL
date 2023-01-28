@@ -3,7 +3,7 @@ const User = require("../model/auth.models");
 //index(login pageに飛ぶ)
 exports.getLoginPage = (req, res) => {
   req.session.destroy();
-  res.render("index");
+  res.render("login");
 };
 
 //(register pageに飛ぶ)
