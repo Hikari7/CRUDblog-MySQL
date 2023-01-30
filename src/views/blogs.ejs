@@ -4,7 +4,7 @@
   class="bg-stone-700 px-6 text-slate-50 py-6 border-b-2 border-slate-50 tracking-widest"
 >
   <nav class="flex justify-between">
-    <div class="px-3 py-2 font-semibold">Supar simple board app</div>
+    <div class="px-3 py-2 font-semibold">Super simple board app</div>
     <div class="mx-0 ml-5">
       <button
         class="tracking-wider ml-4 bg-transparent hover:bg-stone-200 text-slate-50 hover:text-stone-500 py-2 px-4 border border-slate-50 hover:border-transparent rounded transition delay-150;"
@@ -24,7 +24,7 @@
       lists
     </h1>
     <button
-      class="mt-5 text-xl tracking-wider bg-transparent hover:bg-rose-300 text-slate-50 hover:text-stone-500 py-2 px-6 border border-slate-50 hover:border-transparent rounded transition delay-150;"
+      class="mt-7 text-xl tracking-wider bg-transparent hover:bg-rose-300 text-slate-50 hover:text-stone-500 py-2 px-6 border border-slate-50 hover:border-transparent rounded transition delay-150;"
     >
       <a href="/blogs/create">Add</a>
     </button>
@@ -43,27 +43,29 @@
         <li><%= blog.Date %></li>
       </ul>
       <ul>
-        <li class="my-3 text-4xl font-bold tracking-tight dark:text-white">
+        <li class="my-4 text-4xl font-bold tracking-tight dark:text-white">
           <%= blog.Title %>
         </li>
-        <li class="my-4 font-normal font-sans text-gray-300">
+        <li class="my-6 font-normal font-sans text-gray-300">
           <%= blog.Article %>
         </li>
-        <button
-          class="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-centerbg-transparent hover:bg-orange-200 text-orange-200 hover:text-stone-500 border border-slate-50 hover:border-transparent rounded"
-        >
-          <a href="/blogs/edit/<%= blog.Blog_ID %>">Edit</a>
-        </button>
-        <button
-          class="inline-flex items-center px-3 py-2 text-sm font-medium text-centerbg-transparent hover:bg-rose-600 text-rose-600 hover:text-stone-500 border border-slate-50 hover:border-transparent rounded"
-        >
-          <form
-            action="/blogs/delete/<%= blog.Blog_ID %>?_method=DELETE"
-            method="post"
+        <div class="pt-3">
+          <button
+            class="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-centerbg-transparent hover:bg-orange-200 text-orange-200 hover:text-stone-500 border border-slate-50 hover:border-transparent rounded"
           >
-            <input type="submit" value="Delete" />
-          </form>
-        </button>
+            <a href="/blogs/edit/<%= blog.Blog_ID %>">Edit</a>
+          </button>
+          <button
+            class="inline-flex items-center px-3 py-2 text-sm font-medium text-centerbg-transparent hover:bg-rose-600 text-rose-600 hover:text-stone-500 border border-slate-50 hover:border-transparent rounded"
+          >
+            <form
+              action="/blogs/delete/<%= blog.Blog_ID %>?_method=DELETE"
+              method="post"
+            >
+              <input type="submit" value="Delete" />
+            </form>
+          </button>
+        </div>
       </ul>
     </div>
     <% } %>

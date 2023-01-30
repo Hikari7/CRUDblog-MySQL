@@ -41,9 +41,8 @@ module.exports = class Blog {
   }
 
   static updateOne(data) {
-    const sql =
-      "UPDATE Blogs SET Title = ?, Date = ?, Article = ? WHERE (Blog_ID = ?)";
-    const params = [data.Title, data.Date, data.Article, data.id];
+    const sql = "UPDATE Blogs SET Title = ?, Article = ? WHERE (Blog_ID = ?)";
+    const params = [data.Title, data.Article, data.id];
     return db.execute(sql, params);
   }
 
