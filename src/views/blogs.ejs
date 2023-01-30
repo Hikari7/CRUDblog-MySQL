@@ -1,43 +1,72 @@
 <%- include("partials/header.ejs") %>
 
-<h1>Hello <%= name %></h1>
+<header
+  class="bg-stone-700 px-6 text-slate-50 py-6 border-b-2 border-slate-50 tracking-widest"
+>
+  <nav class="flex justify-between">
+    <div class="px-3 py-2 font-semibold">Supar simple board app</div>
+    <div class="mx-0 ml-5">
+      <button
+        class="tracking-wider ml-4 bg-transparent hover:bg-stone-200 text-slate-50 hover:text-stone-500 py-2 px-4 border border-slate-50 hover:border-transparent rounded transition delay-150;"
+      >
+        <a href="/">Logout</a>
+      </button>
+    </div>
+  </nav>
+</header>
 
-<h1>List of books (<%= model.length %>)</h1>
+<div class="bg-stone-800 min-h-screen tracking-widest">
+  <div class="pt-28 text-slate-100 mx-auto justify-center w-10/12 text-5xl">
+    <h1>Hello <%= name %>.</h1>
+    <h1 class="pt-2">
+      We're sharing
+      <span class="text-rose-300"><%= model.length %></span>
+      lists
+    </h1>
+    <button
+      class="mt-5 text-xl tracking-wider bg-transparent hover:bg-rose-300 text-slate-50 hover:text-stone-500 py-2 px-6 border border-slate-50 hover:border-transparent rounded transition delay-150;"
+    >
+      <a href="/blogs/create">Add</a>
+    </button>
+  </div>
 
-<div>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Article</th>
-        <th>Author</th>
-        <th>
-          <a href="/blogs/create">Add</a>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for (const blog of model) { %>
-      <tr>
-        <td><%= blog.Title %></td>
-        <td><%= blog.Date %></td>
-        <td><%= blog.Article %></td>
-        <td><%= blog.Author %></td>
-        <td>
+  <div
+    class="py-20 w-10/12 mx-auto justify-center grid grid-cols-1 sm:grid-cols-3 gap-4"
+  >
+    <% for (const blog of model) { %>
+    <div
+      class="text-slate-50 max-w-sm p-8 border border-gray-200 rounded-lg shadow"
+    >
+      <ul class="flex font-sans">
+        <li><%= blog.Author %></li>
+        <li>&ensp;|&ensp;</li>
+        <li><%= blog.Date %></li>
+      </ul>
+      <ul>
+        <li class="my-3 text-4xl font-bold tracking-tight dark:text-white">
+          <%= blog.Title %>
+        </li>
+        <li class="my-4 font-normal font-sans text-gray-300">
+          <%= blog.Article %>
+        </li>
+        <button
+          class="mr-3 inline-flex items-center px-3 py-2 text-sm font-medium text-centerbg-transparent hover:bg-orange-200 text-orange-200 hover:text-stone-500 border border-slate-50 hover:border-transparent rounded"
+        >
           <a href="/blogs/edit/<%= blog.Blog_ID %>">Edit</a>
+        </button>
+        <button
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-centerbg-transparent hover:bg-rose-600 text-rose-600 hover:text-stone-500 border border-slate-50 hover:border-transparent rounded"
+        >
           <form
             action="/blogs/delete/<%= blog.Blog_ID %>?_method=DELETE"
             method="post"
           >
             <input type="submit" value="Delete" />
           </form>
-        </td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
-
-  <a href="/">Logout</a>
+        </button>
+      </ul>
+    </div>
+    <% } %>
+  </div>
 </div>
 <%- include("partials/footer.ejs") %>
